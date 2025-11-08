@@ -1,0 +1,28 @@
+const fontFamily = {
+  TTFirstNeue: 'TT Firs Neue',
+  TTFirstNeue_Regular: 'TTFirsNeue-Regular',
+  TTFirstNeue_Bold: 'TTFirsNeue-Bold',
+  TTFirstNeue_Medium: 'TTFirsNeue-Medium',
+  TTFirstNeue_Italic: 'TTFirsNeue-Italic',
+  TTFirstNeue_BoldItalic: 'TTFirsNeue-BoldItalic',
+  TTFirstNeue_MediumItalic: 'TTFirsNeue-MediumItalic',
+  TTFirstNeue_Demibold: 'TTFirsNeue-DemiBold',
+  TTFirstNeue_DemiboldItalic: 'TTFirsNeue-DemiBoldItalic',
+  TTFirstNeue_Black: 'TTFirsNeue-Black',
+  TTFirstNeue_BlackItalic: 'TTFirsNeue-BlackItalic',
+  TTFirstNeue_Light: 'TTFirsNeue-Light',
+  TTFirstNeue_LightItalic: 'TTFirsNeue-LightItalic',
+  TTFirstNeue_Thin: 'TTFirsNeue-Thin',
+  TTFirstNeue_ThinItalic: 'TTFirsNeue-ThinItalic',
+
+  Ubuntu: 'Ubuntu',
+  Ubuntu_Regular: 'Ubuntu-Regular',
+  Ubuntu_Italic: 'Ubuntu-Italic',
+  Ubuntu_Light: 'Ubuntu-Light',
+  Ubuntu_LightItalic: 'Ubuntu-LightItalic',
+  Ubuntu_Medium: 'Ubuntu-Medium',
+  Ubuntu_MediumItalic: 'Ubuntu-MediumItalic',
+  Ubuntu_Bold: 'Ubuntu-Bold',
+  Ubuntu_BoldItalic: 'Ubuntu-BoldItalic',
+};
+export default fontFamily;

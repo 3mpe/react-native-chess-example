@@ -1,0 +1,94 @@
+def node_require(script)
+  # Resolve script with node to allow for hoisting
+  require Pod::Executable.execute_command('node', ['-p',
+    "require.resolve(
+      '#{script}',
+      {paths: [process.argv[1]]},
+    )", __dir__]).strip
+end
+
+node_require('react-native/scripts/react_native_pods.rb')
+node_require('react-native-permissions/scripts/setup.rb')
+
+platform :ios, min_ios_version_supported 
+
+# React Native projesini hazırla
+prepare_react_native_project!
+use_frameworks! :linkage => :static
+
+# $RNFirebaseAsStaticFramework ayarını yap
+$RNFirebaseAsStaticFramework = true  
+
+setup_permissions([
+  'Camera',
+  'MediaLibrary',
+  'Notifications',
+  'PhotoLibrary',
+  'PhotoLibraryAddOnly',
+  # 'AppTrackingTransparency',
+  # 'Bluetooth',
+  # 'Calendars',
+  # 'CalendarsWriteOnly',
+  # 'Contacts',
+  # 'FaceID',
+  # 'LocationAccuracy',
+  # 'LocationAlways',
+  # 'LocationWhenInUse',
+  # 'Microphone',
+  # 'Motion',
+  # 'Reminders',
+  # # 'Siri',
+  # 'SpeechRecognition',
+  # 'StoreKit',
+])
+
+# Firebase ve izinler için gerekli pod'ları ekleyin
+target 'myApp' do
+  config = use_native_modules!
+
+  use_react_native!(
+    :path => config[:reactNativePath],
+    :app_path => "#{Pod::Config.instance.installation_root}/.."
+  ) 
+
+    use_react_native!(
+    :path => config[:reactNativePath],
+    :hermes_enabled => true
+  )
+
+  post_install do |installer|
+    # React Native özel kurulum işlemleri
+    react_native_post_install(
+      installer,
+      config[:reactNativePath],
+      #:hermes_enabled => false # Hermes'i devre dışı bırak
+    )
+
+    # setup_permissions fonksiyonunu buraya ekleyin
+    setup_permissions(installer)
+
+    # Firebase pod'larını ekle
+    pod 'Firebase', :modular_headers => true
+    pod 'FirebaseCoreInternal', :modular_headers => true
+    pod 'GoogleUtilities', :modular_headers => true
+    pod 'FirebaseCore', :modular_headers => true
+    
+    # pod 'TunnelSDK', '22.08.0'
+    
+    # Bitcode ayarını devre dışı bırak
+    installer.pods_project.targets.each do |target|
+      target.build_configurations.each do |config|
+        # Bitcode'u tüm pod'lar için kapatır (Yeni Xcode sürümleri için gereklidir)
+        config.build_settings['ENABLE_BITCODE'] = 'NO'
+        
+        # dSYM (sembol dosyası) oluşturulmasını sağlar
+        config.build_settings['DEBUG_INFORMATION_FORMAT'] = 'dwarf-with-dsym'
+        
+        # Tüm pod'ların minimum iOS hedefini 13.0'a eşitler.
+        # Bu, "deployment target" uyumsuzluk hatasını kesin olarak çözer.
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '13.0'
+      end
+    end
+
+  end
+end
