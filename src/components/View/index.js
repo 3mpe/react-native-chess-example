@@ -1,12 +1,11 @@
 /* eslint-disable react-native/no-inline-styles */
 import PropTypes from 'prop-types';
 import React from 'react';
-import {View as RNView} from 'react-native';
-import {s} from './../../utils';
+import { View as RNView } from 'react-native';
+import { s } from './../../utils';
 import styled from './styled';
 import tokens from '../../utils/themeToken';
 import Loading from '../Loading';
-import InfoWrapper from './infoWrapper';
 
 /**
  * @typedef {import('react-native').ViewProps & {
@@ -189,7 +188,7 @@ const View = ({
   if (useShadow) {
     baseStyle.backgroundColor = 'white';
     baseStyle.shadowColor = tokens.colors.neutral1;
-    baseStyle.shadowOffset = {width: 0, height: 2};
+    baseStyle.shadowOffset = { width: 0, height: 2 };
     baseStyle.shadowOpacity = 0.1;
     baseStyle.shadowRadius = 5;
     baseStyle.elevation = 5;
@@ -213,7 +212,8 @@ const View = ({
             justifyContent: 'center',
             alignItems: 'center',
           },
-        ]}>
+        ]}
+      >
         <Loading loading size="small" color={baseStyle.backgroundColor} />
       </RNView>
     );
@@ -229,7 +229,8 @@ const View = ({
         alignCenter && styles.alignCenter,
         style,
       ]}
-      {...props}>
+      {...props}
+    >
       {children}
     </RNView>
   );
@@ -357,5 +358,56 @@ View.propTypes = {
   borderStyle: PropTypes.string,
   children: PropTypes.node,
 };
+
+// --- Döngüsel Bağımlılığı Kırmak İçin Alt Bileşenleri Burada Tanımla ---
+
+const Image = require('../Image').default;
+const Typography = require('../Typography').default;
+
+/**
+ * InfoWrapper bileşeni, View'e bağlı bir alt bileşen olarak burada tanımlanmıştır.
+ * Bu, `infoWrapper.js -> Typography.js -> ... -> View.js` döngüsünü kırar.
+ */
+const InfoWrapper = ({
+  text = '',
+  icon = 'infoModal',
+  tintColor,
+  color = 'default10',
+  htmlContent = null,
+  ...rest
+}) => {
+  return (
+    <View>
+      <View
+        row
+        bgColor="neutral2"
+        borderColor="primary6"
+        borderWidth={1}
+        borderRadius={8}
+        padding={16}
+        {...rest}
+      >
+        <Image
+          name={icon}
+          width={24}
+          height={24}
+          tintColor={tintColor}
+          margin={0}
+        />
+        <Typography
+          variant="p3"
+          color={color}
+          marginLeft={8}
+          marginRight={8}
+          paddingRight={8}
+          htmlContent={htmlContent}
+        >
+          {typeof text === 'string' ? text : <>{text}</>}
+        </Typography>
+      </View>
+    </View>
+  );
+};
+
 View.InfoWrapper = InfoWrapper;
 export default View;

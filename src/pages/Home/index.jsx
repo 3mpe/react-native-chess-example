@@ -4,7 +4,7 @@ import { Typography, View } from '../../components';
 const Home = () => {
   return (
     <View>
-      <Typography variant="h1">Welcome to the Home Page</Typography>
+      <Typography variant="p1">Welcome to the Home Page</Typography>
     </View>
   );
 };

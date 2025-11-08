@@ -1,4 +1,4 @@
-import {createNavigationContainerRef} from '../utils';
+import { createNavigationContainerRef } from '@react-navigation/native';
 
 export const navigationRef = createNavigationContainerRef();
 

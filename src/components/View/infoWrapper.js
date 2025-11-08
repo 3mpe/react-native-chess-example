@@ -1,6 +1,6 @@
 /* eslint-disable react/react-in-jsx-scope */
 import PropTypes from 'prop-types';
-import View from '.';
+import RNView from './index';
 import Image from '../Image';
 import Typography from '../Typography';
 
@@ -26,15 +26,16 @@ const InfoWrapper = ({
   ...rest
 }) => {
   return (
-    <View>
-      <View
+    <RNView>
+      <RNView
         row
         bgColor="neutral2"
         borderColor="primary6"
         borderWidth={1}
         borderRadius={8}
         padding={16}
-        {...rest}>
+        {...rest}
+      >
         <Image
           name={icon}
           width={24}
@@ -48,11 +49,12 @@ const InfoWrapper = ({
           marginLeft={8}
           marginRight={8}
           paddingRight={8}
-          htmlContent={htmlContent}>
+          htmlContent={htmlContent}
+        >
           {typeof text === 'string' ? text : <>{text}</>}
         </Typography>
-      </View>
-    </View>
+      </RNView>
+    </RNView>
   );
 };
 

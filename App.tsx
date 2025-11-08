@@ -11,6 +11,7 @@ import NavigationContainerWrapper from './src/navigation/navigationContainer';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
+  console.log('isDarkMode', isDarkMode);
 
   return (
     <SafeAreaProvider>

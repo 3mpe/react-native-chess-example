@@ -1,15 +1,13 @@
 /* eslint-disable react-native/no-inline-styles */
 import PropTypes from 'prop-types';
 import React from 'react';
-import {Text, useWindowDimensions} from 'react-native';
+import { Text, useWindowDimensions } from 'react-native';
 import RenderHTML from 'react-native-render-html';
 import Content from './Content';
 import styles from './styled';
 import fontFamily from '../../utils/fontAssets';
 import tokens from '../../utils/themeToken';
 import View from '../View';
-import HeaderTitle from './HeaderTitle';
-import Highlight from './Highlight';
 
 /**
  * @param {import('react-native').TextProps & {
@@ -107,7 +105,7 @@ const Typography = ({
   ...props
 }) => {
   const styled = styles();
-  const {width: windowWidth} = useWindowDimensions();
+  const { width: windowWidth } = useWindowDimensions();
 
   // 1. Font ağırlığını ve ailesini belirle
   const baseFont = font ? fontFamily[font] : fontFamily.Ubuntu;
@@ -198,10 +196,11 @@ const Typography = ({
           styled[variant],
           baseText,
           style,
-          paragraph && index < paragraphs.length - 1 && {marginBottom: 8},
-          opacity !== 1 && {opacity},
+          paragraph && index < paragraphs.length - 1 && { marginBottom: 8 },
+          opacity !== 1 && { opacity },
         ]}
-        {...textProps}>
+        {...textProps}
+      >
         {p}
       </Text>
     ));
@@ -245,10 +244,10 @@ const Typography = ({
         </html>
     `;
     return (
-      <View style={{flex: 1}} {...containerProps}>
+      <View style={{ flex: 1 }} {...containerProps}>
         <RenderHTML
           contentWidth={width || windowWidth}
-          source={{html}}
+          source={{ html }}
           {...textProps}
           baseStyle={baseStyle}
           defaultTextProps={{
@@ -331,6 +330,26 @@ Typography.propTypes = {
   ifCond: PropTypes.bool,
 };
 
+// --- Döngüsel Bağımlılığı Kırmak İçin Alt Bileşenleri Burada Tanımla ---
+
+/**
+ * HeaderTitle bileşeni, Typography'ye bağlı bir alt bileşen olarak burada tanımlanmıştır.
+ * Bu, `HeaderTitle.js -> View.js -> ... -> Typography.js` döngüsünü kırar.
+ */
+const HeaderTitle = ({ title, color = 'default10', bgColor = 'surface1' }) => (
+  <View
+    bgColor={bgColor}
+    padding={16}
+    borderTopEndRadius={8}
+    borderTopStartRadius={8}
+  >
+    <Typography variant="s3" semibold color={color}>
+      {title}
+    </Typography>
+  </View>
+);
+
 Typography.HeaderTitle = HeaderTitle;
-Typography.Highlight = Highlight;
+Typography.Highlight = require('./Highlight').default; // Highlight için de döngü riskini azaltalım.
+
 export default Typography;
