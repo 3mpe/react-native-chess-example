@@ -1,11 +1,12 @@
 import React from 'react';
-import { Typography, View } from '../../components';
+import { ChessBoard, GameStatus, SafeAreaView } from '../../components';
 
 const Home = () => {
   return (
-    <View>
-      <Typography variant="p1">Welcome to the Home Page</Typography>
-    </View>
+    <SafeAreaView>
+      <ChessBoard />
+      <GameStatus />
+    </SafeAreaView>
   );
 };
 

@@ -23,3 +23,6 @@ export { default as Dot } from './Dot';
 export { default as NoInternetScreen } from './NoInternet';
 export { default as EmptyList } from './EmptyList';
 export { default as Tab } from './Tab';
+export { default as ChessBoard } from './Game/ChessBoard';
+export { default as GameStatus } from './Game/GameStatus';
+export { default as Piece } from './Game/Piece';
