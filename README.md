@@ -1,97 +1,132 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# myApp Projesi
 
-# Getting Started
+**Sürüm:** 0.0.1
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+Bu proje, modern React Native uygulamaları geliştirmek için sağlam bir temel sunan, zengin özelliklere sahip bir başlangıç şablonudur. Bildirimler, güvenli veri saklama, OTP (Tek Kullanımlık Şifre) yönetimi ve gelişmiş UI bileşenleri gibi birçok hazır çözüm içerir.
 
-## Step 1: Start Metro
+## ✨ Öne Çıkan Özellikler
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+- **Push Bildirimleri:** Firebase Cloud Messaging (FCM) entegrasyonu ile uygulama açık, kapalı veya arka plandayken bildirim alabilme ve yönetebilme. Bildirimlere tıklandığında istenilen sayfaya yönlendirme (deep-linking).
+- **Güvenli Veri Saklama:** Kullanıcı token'ları gibi hassas verileri cihazın güvenli depolama alanı olan Keychain (iOS) ve Keystore (Android) üzerinde saklama. Biyometrik (parmak izi/yüz tanıma) kimlik doğrulama desteği.
+- **Otomatik OTP Okuma (Android):** Android cihazlarda SMS ile gelen tek kullanımlık şifreleri otomatik olarak okuyup ilgili alana dolduran yardımcı modül.
+- **Gelişmiş Liste Bileşeni:** Kaydırarak yana menü açılabilen (`swipable`), aşağı kaydırdıkça yeni veri yükleyen (`infinite-scroll`) ve sayfayı yenilemek için aşağı çekilebilen (`pull-to-refresh`) gelişmiş `FlatList` bileşeni.
+- **Dinamik Tipografi ve Vurgulama:** Uygulama genelinde tutarlı bir görünüm sağlayan, farklı font ve boyutları destekleyen `Typography` bileşeni. Arama sonuçlarında metinleri renklendirerek vurgulayan `Highlight` özelliği.
+- **HTML İçerik Gösterimi:** `react-native-render-html` kullanılarak HTML içeriğini native bileşenlere dönüştürerek gösterme yeteneği.
+- **Uluslararasılaştırma (i18n):** `i18n-js` ile çoklu dil desteği altyapısı (Türkçe ve İngilizce için hazır).
+- **Yardımcı Fonksiyonlar:** Telefon numarası formatlama, isim-soyisim ayırma, metin kısaltma gibi sık kullanılan yardımcı fonksiyonlar.
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+## 🚀 Teknolojiler ve Kütüphaneler
 
-```sh
-# Using npm
-npm start
+Bu proje, güncel ve popüler kütüphaneler kullanılarak oluşturulmuştur.
 
-# OR using Yarn
-yarn start
+### Ana Teknolojiler
+
+- **React:** 19.1.1
+- **React Native:** 0.82.1
+- **Node.js:** >=20
+
+### Bağımlılıklar (Dependencies)
+
+| Kategori             | Kütüphane                                   | Sürüm   | Açıklama                                                  |
+| -------------------- | ------------------------------------------- | ------- | --------------------------------------------------------- |
+| **Navigasyon**       | `@react-navigation/native`                  | ^6.1.17 | Uygulama içi sayfa geçişleri için temel kütüphane.        |
+|                      | `@react-navigation/stack`                   | ^6.3.29 | Stack (yığın) navigasyon yapısı.                          |
+|                      | `@react-navigation/bottom-tabs`             | ^6.5.20 | Alt sekme menüsü navigasyonu.                             |
+| **Bildirimler**      | `@react-native-firebase/app`                | ^20.1.0 | Firebase servislerinin temel entegrasyonu.                |
+|                      | `@react-native-firebase/messaging`          | ^20.1.0 | Firebase Cloud Messaging (FCM) ile push bildirimleri.     |
+|                      | `@notifee/react-native`                     | ^9.1.8  | Uygulama açıkken bildirimleri ekranda göstermek için.     |
+| **Veri Saklama**     | `@react-native-async-storage/async-storage` | ^1.23.1 | Genel amaçlı asenkron veri saklama.                       |
+|                      | `react-native-keychain`                     | ^10.0.0 | Hassas veriler için güvenli depolama (Keychain/Keystore). |
+| **UI & Arayüz**      | `react-native-gesture-handler`              | ^2.16.2 | Gelişmiş dokunmatik hareketleri yönetimi.                 |
+|                      | `react-native-reanimated`                   | ^3.15.0 | Akıcı animasyonlar için kütüphane.                        |
+|                      | `react-native-screens`                      | ^3.31.1 | Navigasyon için native ekran optimizasyonu.               |
+|                      | `react-native-safe-area-context`            | ^5.5.2  | Ekranın güvenli alanlarını yönetme.                       |
+|                      | `react-native-modal`                        | ^13.0.1 | Gelişmiş modal (popup) bileşeni.                          |
+|                      | `react-native-svg`                          | ^12.1.1 | SVG formatında vektörel çizimler için.                    |
+|                      | `react-native-render-html`                  | ^6.3.4  | HTML içeriğini native bileşenlere dönüştürme.             |
+| **Yardımcı Araçlar** | `axios`                                     | ^1.7.2  | HTTP istekleri için modern bir istemci.                   |
+|                      | `moment`                                    | ^2.30.1 | Tarih ve saat işlemleri için.                             |
+|                      | `i18n-js`                                   | ^4.4.3  | Çoklu dil desteği.                                        |
+|                      | `react-native-permissions`                  | ^4.1.5  | Cihaz izinlerini (kamera, bildirim vb.) yönetme.          |
+|                      | `react-native-fs`                           | ^2.15.0 | Cihazın dosya sistemine erişim.                           |
+|                      | `react-hook-form`                           | ^7.51.5 | Performanslı ve esnek form yönetimi.                      |
+| **Cihaz Donanımı**   | `react-native-camera`                       | ^4.2.1  | Kamera erişimi ve yönetimi.                               |
+|                      | `react-native-image-crop-picker`            | ^0.41.1 | Resim galerisinden seçim yapma ve kırpma.                 |
+|                      | `react-native-document-scanner-plugin`      | ^1.0.1  | Döküman tarama özelliği.                                  |
+
+## 📂 Proje Yapısı
+
+Proje, modüler ve ölçeklenebilir bir yapıda tasarlanmıştır.
+
+```
+myApp/
+├── android/         # Android projesi
+├── ios/             # iOS projesi
+├── src/
+│   ├── assets/      # Fontlar, resimler vb. statik dosyalar
+│   ├── components/  # Tekrar kullanılabilir UI bileşenleri (Button, Typography, vb.)
+│   ├── navigation/  # React Navigation konfigürasyonu
+│   ├── screens/     # Uygulama ekranları
+│   ├── services/    # API servisleri ve istemcileri
+│   └── utils/       # Yardımcı fonksiyonlar, sabitler ve konfigürasyonlar (bildirim, depolama vb.)
+├── app.json
+└── package.json
 ```
 
-## Step 2: Build and run your app
+## 🏁 Başlarken
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+Projeyi yerel makinenizde çalıştırmak için aşağıdaki adımları izleyin.
 
-### Android
+### Gereksinimler
 
-```sh
-# Using npm
-npm run android
+- Node.js (>= 20)
+- Watchman (macOS için)
+- React Native CLI (Kurulum için resmi dokümantasyonu takip edin)
+- Xcode (iOS için)
+- Android Studio (Android için)
 
-# OR using Yarn
-yarn android
-```
+### Kurulum
 
-### iOS
+1.  **Projeyi klonlayın:**
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
+    ```bash
+    git clone <proje-repo-url>
+    cd myApp
+    ```
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+2.  **Bağımlılıkları yükleyin:**
 
-```sh
-bundle install
-```
+    ```bash
+    npm install
+    ```
 
-Then, and every time you update your native dependencies, run:
+3.  **iOS için Pod'ları yükleyin:**
+    ```bash
+    npm run pod:install
+    ```
 
-```sh
-bundle exec pod install
-```
+### Uygulamayı Çalıştırma
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+- **Android için:**
 
-```sh
-# Using npm
-npm run ios
+  ```bash
+  npm run android
+  ```
 
-# OR using Yarn
-yarn ios
-```
+- **iOS için:**
+  ```bash
+  npm run ios
+  ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+## 🛠️ Kullanılabilir Script'ler
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+- `npm run lint`: Koddaki stil ve format hatalarını kontrol eder.
+- `npm run lint:fix`: Bulunan stil hatalarını otomatik olarak düzeltir.
+- `npm run prettier`: Kodu Prettier formatına göre düzenler.
+- `npm test`: Jest ile yazılmış testleri çalıştırır.
+- `npm run clean:android`: Android derleme önbelleğini temizler.
+- `npm run clean:ios`: iOS derleme önbelleğini temizler.
 
-## Step 3: Modify your app
+---
 
-Now that you have successfully run the app, let's make changes!
-
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
-
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
-
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+Bu `README` dosyası, projenin anlaşılmasını ve yeni geliştiricilerin hızlıca adapte olmasını kolaylaştırmak amacıyla hazırlanmıştır.
