@@ -1,11 +1,11 @@
 import React from 'react';
 import { Dimensions, StyleSheet, View } from 'react-native'; // 'View' buraya eklendi
-import Piece from './../Piece'; // 'Piece' import edildi (DraggablePiece yerine)
+import { Piece } from './../../'; // 'Piece' import edildi (DraggablePiece yerine)
 import { useGame } from '../../../context/GameProvider';
 
 // Ekran genişliğini alarak tahta boyutunu ona göre ayarlayalım
 const { width } = Dimensions.get('window');
-const BOARD_SIZE = width * 0.99; // Ekran genişliğinin %99'u
+const BOARD_SIZE = width * 0.999; // Ekran genişliğinin %99'u
 const CELL_SIZE = BOARD_SIZE / 8; // Her bir karenin boyutu
 
 const ChessBoard = () => {
