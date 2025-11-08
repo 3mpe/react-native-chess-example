@@ -10,7 +10,6 @@ import Animated, {
   runOnJS,
 } from 'react-native-reanimated';
 
-// --- Sabitler ---
 const PIECE_MAP = {
   p: '♙',
   r: '♜',
@@ -26,30 +25,23 @@ const PIECE_MAP = {
   K: '♔',
 };
 
-// Piksel koordinatını satranç notasyonuna çevirir (örn: 4, 4 -> "e4")
-// Artık CELL_SIZE'ı parametre olarak alıyor
 const toSquare = (x, y, CELL_SIZE) => {
   'worklet';
   const col = Math.floor(x / CELL_SIZE);
   const row = Math.floor(y / CELL_SIZE);
-  // Sınırların dışındaysa null dön
   if (col < 0 || col > 7 || row < 0 || row > 7) return null;
 
   const files = 'abcdefgh';
-  const ranks = '87654321'; // Tahta dizisi 0. index'i 8. rank olarak alır
+  const ranks = '87654321';
   return `${files[col]}${ranks[row]}`;
 };
 
-// Bileşenin adını 'Piece' olarak değiştirdim (sen öyle import etmişsin)
 const Piece = ({ piece, rowIndex, colIndex, CELL_SIZE }) => {
-  // CELL_SIZE prop'u eklendi
-  // Context'ten hamle fonksiyonunu ve sırayı al
   const { makeMove, turn, isGameOver } = useGame();
 
-  const square = piece.square; // örn: "e2"
+  const square = piece.square;
   const isMyTurn = turn === piece.color;
 
-  // Animasyon için paylaşımlı değerler
   const translateX = useSharedValue(0);
   const translateY = useSharedValue(0);
   const zIndex = useSharedValue(1);
@@ -64,7 +56,6 @@ const Piece = ({ piece, rowIndex, colIndex, CELL_SIZE }) => {
     }
   };
 
-  // Parmak hareketlerini yöneten handler
   const gestureHandler = useAnimatedGestureHandler({
     onStart: (_, ctx) => {
       if (!isMyTurn || isGameOver) return;
@@ -99,7 +90,6 @@ const Piece = ({ piece, rowIndex, colIndex, CELL_SIZE }) => {
     },
   });
 
-  // Animasyon stilini oluştur
   const animatedStyle = useAnimatedStyle(() => {
     return {
       zIndex: zIndex.value,
@@ -110,12 +100,10 @@ const Piece = ({ piece, rowIndex, colIndex, CELL_SIZE }) => {
     };
   });
 
-  // Taşın tahtadaki piksel pozisyonu
   const piecePositionStyle = {
     position: 'absolute',
     left: colIndex * CELL_SIZE,
     top: rowIndex * CELL_SIZE,
-    // CELL_SIZE'a bağlı stiller dinamik hale getirildi
     width: CELL_SIZE,
     height: CELL_SIZE,
   };
@@ -134,7 +122,7 @@ const Piece = ({ piece, rowIndex, colIndex, CELL_SIZE }) => {
         <Text
           style={[
             styles.piece,
-            { fontSize: CELL_SIZE * 0.7 }, // Font boyutu dinamik hale getirildi
+            { fontSize: CELL_SIZE * 0.7 },
             pieceColor === 'b' ? styles.blackPiece : styles.whitePiece,
           ]}
         >
@@ -151,16 +139,12 @@ const Piece = ({ piece, rowIndex, colIndex, CELL_SIZE }) => {
   );
 };
 
-// Stiller buraya taşındı ve dinamik hale getirildi
 const styles = StyleSheet.create({
   pieceContainer: {
-    // width ve height piecePositionStyle'a taşındı
     justifyContent: 'center',
     alignItems: 'center',
   },
-  piece: {
-    // fontSize animated style'a taşındı
-  },
+  piece: {},
   whitePiece: {
     color: '#FFFFFF',
   },

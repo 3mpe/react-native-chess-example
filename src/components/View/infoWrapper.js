@@ -4,19 +4,6 @@ import RNView from './index';
 import Image from '../Image';
 import Typography from '../Typography';
 
-/**
- * @typedef {import('.').CustomViewProps & {
- *   text: string | import('react').ReactNode;
- *   icon?: string;
- *   tintColor?: string;
- * }} InfoWrapperProps
- */
-
-/**
- * Belirli bir metni ve ikonu bir çerçeve içinde gösteren bilgilendirme bileşeni.
- * @param {InfoWrapperProps} props - InfoWrapper bileşeninin propları.
- * @returns {JSX.Element}
- */
 const InfoWrapper = ({
   text = '',
   icon = 'infoModal',

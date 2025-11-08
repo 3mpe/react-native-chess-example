@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Text, useWindowDimensions } from 'react-native';
@@ -9,53 +8,6 @@ import fontFamily from '../../utils/fontAssets';
 import tokens from '../../utils/themeToken';
 import View from '../View';
 
-/**
- * @param {import('react-native').TextProps & {
- *  ifCond?: boolean,
- *  flex?: boolean | number,
- *  center?: boolean,
- *  alignCenter?: boolean,
- *  between?: boolean,
- *  around?: boolean,
- *  evenly?: boolean,
- *  start?: boolean,
- *  end?: boolean,
- *  stretch?: boolean,
- *  baseline?: boolean,
- *  row?: boolean,
- *  column?: boolean,
- *  wrap?: boolean,
- *  padding?: number | string,
- *  paddingTop?: number | string,
- *  paddingBottom?: number | string,
- *  paddingLeft?: number | string,
- *  paddingRight?: number | string,
- *  margin?: number | string,
- *  marginTop?: number | string,
- *  marginBottom?: number | string,
- *  marginLeft?: number | string,
- *  marginRight?: number | string,
- *  width?: number | string,
- *  height?: number | string,
- *  borderRadius?: number,
- *  bgColor?: string,
- *  textRight?: boolean,
- *  textLeft?: boolean,
- *  textCenter?: boolean,
- *  bold?: boolean,
- *  semibold?: boolean,
- *  regular?: boolean,
- *  align?: 'left' | 'center' | 'right' | 'justify',
- *  color?: string,
- *  variant: 'h1'|'h2'|'h3'|'h4'|'h5'|'h6'|'s1'|'s2'|'s3'|'s4'|'p1'|'p2'|'p3'|'p4'|'p5',
- *  paragraph?: boolean,
- *  wrapView?: boolean,
- *  truncate?: boolean,
- *  htmlContent?: string,
- *  children?: React.ReactNode,
- *  font?: keyof typeof fontFamily
- * }} props
- */
 const Typography = ({
   flex,
   center,
@@ -107,7 +59,6 @@ const Typography = ({
   const styled = styles();
   const { width: windowWidth } = useWindowDimensions();
 
-  // 1. Font ağırlığını ve ailesini belirle
   const baseFont = font ? fontFamily[font] : fontFamily.Ubuntu;
   const fontStyle = {};
   if (bold) {
@@ -121,7 +72,6 @@ const Typography = ({
     fontStyle.fontFamily = baseFont;
   }
 
-  // 2. Text için temel stil objesi
   const baseText = {
     ...fontStyle,
     textAlign:
@@ -139,7 +89,6 @@ const Typography = ({
     baseText.color = tokens.colors[color] || color;
   }
 
-  // 3. truncate prop'una göre Text component'ine eklenecek proplar
   const textProps = {
     ...props,
   };
@@ -149,7 +98,6 @@ const Typography = ({
     textProps.ellipsizeMode = 'tail';
   }
 
-  // View (dış kapsayıcı) için kullanılacak proplar
   const containerProps = {
     flex,
     center,
@@ -181,13 +129,11 @@ const Typography = ({
     ifCond,
   };
 
-  // Paragraf mantığı (children tek bir eleman olsa bile array'e çevirerek map kullanımı için)
   const paragraphs =
     paragraph && typeof children === 'string'
       ? children.split('\n\n')
       : [children];
 
-  // Text component'lerini render eden fonksiyon
   const renderText = () => {
     return paragraphs.map((p, index) => (
       <Text
@@ -206,14 +152,11 @@ const Typography = ({
     ));
   };
 
-  // wrapView false ise, Text'i doğrudan döndür
   if (!wrapView) {
     return renderText();
   }
 
-  // HTML içeriği varsa Content component döndür
   if (htmlContent) {
-    // Tüm metinler için uygulanacak olan temel stil objesi
     const baseStyle = {
       fontFamily: 'Ubuntu',
       fontSize: 14,
@@ -257,12 +200,9 @@ const Typography = ({
       </View>
     );
   }
-  // <Content htmlContent={htmlContent} {...props} />;
 
-  // Children yoksa veya tanımsızsa null döndür
   if (children === null || children === undefined) return null;
 
-  // Artık truncate olsa da olmasa da aynı yapı dönüyor.
   return <View {...containerProps}>{renderText()}</View>;
 };
 
@@ -330,12 +270,6 @@ Typography.propTypes = {
   ifCond: PropTypes.bool,
 };
 
-// --- Döngüsel Bağımlılığı Kırmak İçin Alt Bileşenleri Burada Tanımla ---
-
-/**
- * HeaderTitle bileşeni, Typography'ye bağlı bir alt bileşen olarak burada tanımlanmıştır.
- * Bu, `HeaderTitle.js -> View.js -> ... -> Typography.js` döngüsünü kırar.
- */
 const HeaderTitle = ({ title, color = 'default10', bgColor = 'surface1' }) => (
   <View
     bgColor={bgColor}
@@ -350,6 +284,6 @@ const HeaderTitle = ({ title, color = 'default10', bgColor = 'surface1' }) => (
 );
 
 Typography.HeaderTitle = HeaderTitle;
-Typography.Highlight = require('./Highlight').default; // Highlight için de döngü riskini azaltalım.
+Typography.Highlight = require('./Highlight').default;
 
 export default Typography;

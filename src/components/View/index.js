@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import PropTypes from 'prop-types';
 import React from 'react';
 import { View as RNView } from 'react-native';
@@ -7,64 +6,6 @@ import styled from './styled';
 import tokens from '../../utils/themeToken';
 import Loading from '../Loading';
 
-/**
- * @typedef {import('react-native').ViewProps & {
- *  flex?: boolean | number,
- *  center?: boolean,
- *  alignCenter?: boolean,
- *  between?: boolean,
- *  around?: boolean,
- *  evenly?: boolean,
- *  start?: boolean,
- *  end?: boolean,
- *  stretch?: boolean,
- *  baseline?: boolean,
- *  row?: boolean,
- *  column?: boolean,
- *  wrap?: boolean,
- *  padding?: number | string,
- *  paddingTop?: number | string,
- *  paddingBottom?: number | string,
- *  paddingLeft?: number | string,
- *  paddingRight?: number | string,
- *  margin?: number | string,
- *  marginTop?: number | string,
- *  marginBottom?: number | string,
- *  marginLeft?: number | string,
- *  marginRight?: number | string,
- *  width?: number | string,
- *  height?: number | string,
- *  minWidth?: number | string,
- *  minHeight?: number | string,
- *  borderStartStartRadius?: number,
- *  borderStartEndRadius?: number,
- *  borderEndStartRadius?: number,
- *  borderEndEndRadius?: number,
- *  borderRadius?: number,
- *  borderWidth?: number,
- *  borderColor?: string,
- *  borderStyle?: 'solid' | 'dotted' | 'dashed',
- *  bgColor?: string,
- *  position?: 'relative' | 'absolute',
- *  relative?: boolean,
- *  absolute?: boolean,
- *  left?: number,
- *  right?: number,
- *  top?: number,
- *  bottom?: number,
- *  overflow?: 'visible' | 'hidden' | 'scroll',
- *  opacity?: number,
- *  useShadow?: boolean,
- *  ifCond?: boolean,
- *  loading?: boolean,
- *  loadingHeight?: number,
- *  children?: React.ReactNode
- * }} CustomViewProps
- */
-
-/**
- * @param {CustomViewProps} props
- */
 const View = ({
   flex,
   center,
@@ -359,15 +300,9 @@ View.propTypes = {
   children: PropTypes.node,
 };
 
-// --- Döngüsel Bağımlılığı Kırmak İçin Alt Bileşenleri Burada Tanımla ---
-
 const Image = require('../Image').default;
 const Typography = require('../Typography').default;
 
-/**
- * InfoWrapper bileşeni, View'e bağlı bir alt bileşen olarak burada tanımlanmıştır.
- * Bu, `infoWrapper.js -> Typography.js -> ... -> View.js` döngüsünü kırar.
- */
 const InfoWrapper = ({
   text = '',
   icon = 'infoModal',

@@ -3,9 +3,7 @@ import Typography from '../../Typography';
 import View from '../../View';
 import { useGame } from '../../../context/GameProvider';
 
-// GameStatus bileşeni (değişiklik yok)
 const GameStatus = () => {
-  // ... (kodu aynı, önceki adımdaki gibi)
   const { turn, isCheckmate, isDraw, isGameOver } = useGame();
   let statusText = `Sıradaki: ${turn === 'w' ? 'Beyaz' : 'Siyah'}`;
   if (isCheckmate) {
@@ -23,9 +21,8 @@ const GameStatus = () => {
     </View>
   );
 };
-// Stiller (değişiklik yok)
+
 const styles = StyleSheet.create({
-  // ... (kodu aynı, önceki adımdaki gibi)
   container: {
     flex: 1,
     justifyContent: 'center',

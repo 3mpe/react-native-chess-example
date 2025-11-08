@@ -1,8 +1,3 @@
-// 3rd Party Libraries
-
-// import {NativeModules} from 'react-native';
-// export const {TunnelSdk} = NativeModules;
-
 export { ScaledSheet, s, vs } from 'react-native-size-matters';
 export {
   createStackNavigator,
@@ -60,7 +55,6 @@ export {
 export { default as Pdf } from 'react-native-pdf';
 export { default as VersionCheck } from 'react-native-version-check';
 
-// Custom Libraries
 export {
   navigate,
   navigateRest,
