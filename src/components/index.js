@@ -9,3 +9,5 @@ export { default as GameStatus } from './Game/GameStatus';
 export { default as Piece } from './Game/Piece';
 export { default as ChessPieceSvg } from './Game/ChessPieceSvg';
 export { default as GameControls } from './Game/GameControls';
+
+export { default as Header } from './Header';
