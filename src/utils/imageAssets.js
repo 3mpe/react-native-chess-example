@@ -1,6 +1,6 @@
 import { Platform } from 'react-native';
 import RNFS from 'react-native-fs';
-import API from '../services/api';
+// import API from '../services/api';
 
 const images = {
   error: '',
@@ -13,16 +13,16 @@ const checkImageUrl = (url = '') => {
       resolve({ isError: true, isImageExist: false });
     }
 
-    API.get(url)
-      .then(blob => {
-        const contentType = blob.type;
-        if (!contentType.startsWith('image/')) {
-          resolve({ isError: true, isImageExist: false });
-        }
-      })
-      .catch(error => {
-        resolve({ isError: true, isImageExist: false });
-      });
+    // API.get(url)
+    //   .then(blob => {
+    //     const contentType = blob.type;
+    //     if (!contentType.startsWith('image/')) {
+    //       resolve({ isError: true, isImageExist: false });
+    //     }
+    //   })
+    //   .catch(error => {
+    //     resolve({ isError: true, isImageExist: false });
+    //   });
 
     // Image.getSize(
     //   url,
