@@ -26,3 +26,5 @@ export { default as Tab } from './Tab';
 export { default as ChessBoard } from './Game/ChessBoard';
 export { default as GameStatus } from './Game/GameStatus';
 export { default as Piece } from './Game/Piece';
+export { default as ChessPieceSvg } from './Game/ChessPieceSvg';
+export { default as GameControls } from './Game/GameControls';

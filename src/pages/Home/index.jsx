@@ -1,11 +1,17 @@
 import React from 'react';
-import { ChessBoard, GameStatus, SafeAreaView } from '../../components';
+import {
+  ChessBoard,
+  GameStatus,
+  SafeAreaView,
+  GameControls,
+} from '../../components';
 
 const Home = () => {
   return (
     <SafeAreaView>
       <ChessBoard />
       <GameStatus />
+      <GameControls />
     </SafeAreaView>
   );
 };

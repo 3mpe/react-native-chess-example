@@ -7,12 +7,10 @@ import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withTiming,
-  runOnJS, // JS thread'inde fonksiyon çalıştırmak için
+  runOnJS,
 } from 'react-native-reanimated';
 
 // --- Sabitler ---
-// BOARD_SIZE ve CELL_SIZE buradan kaldırıldı, prop olarak alınacak
-
 const PIECE_MAP = {
   p: '♙',
   r: '♜',
@@ -31,6 +29,7 @@ const PIECE_MAP = {
 // Piksel koordinatını satranç notasyonuna çevirir (örn: 4, 4 -> "e4")
 // Artık CELL_SIZE'ı parametre olarak alıyor
 const toSquare = (x, y, CELL_SIZE) => {
+  'worklet';
   const col = Math.floor(x / CELL_SIZE);
   const row = Math.floor(y / CELL_SIZE);
   // Sınırların dışındaysa null dön
