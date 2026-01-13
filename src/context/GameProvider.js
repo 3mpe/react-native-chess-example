@@ -4,6 +4,7 @@ import React, {
   useState,
   useRef,
   useMemo,
+  useEffect,
 } from 'react';
 import { Chess } from 'chess.js';
 import { useStockfish } from '../hooks/useStockfish';

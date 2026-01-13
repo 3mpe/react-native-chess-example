@@ -8,12 +8,12 @@ const GameControls = () => {
 
   return (
     <View marginLeft={20} marginRight={20}>
-      <Typography variant="h3">
-        Senin Rengin: {userColor === 'w' ? '⚪ Beyaz' : '⚫ Siyah'}
+      <Typography variant="h6" bold>
+        Seçimin: {userColor === 'w' ? '⚪ Beyaz' : '⚫ Siyah'}
       </Typography>
 
       {isAiThinking && <Typography>🤖 AI Hamle Yapıyor...</Typography>}
-      
+
       <Button style={styles.button} onPress={resetGame}>
         <Typography style={styles.buttonText}>Yeni Oyun</Typography>
       </Button>
