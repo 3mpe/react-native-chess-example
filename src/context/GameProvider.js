@@ -6,15 +6,17 @@ import React, {
   useMemo,
 } from 'react';
 import { Chess } from 'chess.js';
+import { useStockfish } from '../hooks/useStockfish';
 
 const GameContext = createContext();
 
 export const GameProvider = ({ children }) => {
   const gameRef = useRef(new Chess());
+  const { getBestMove, isLoading: isAiThinking } = useStockfish();
 
   const [fen, setFen] = useState(gameRef.current.fen());
-
   const [board, setBoard] = useState(gameRef.current.board());
+  const [depth, setDepth] = useState(10);
 
   const makeMove = (from, to) => {
     const game = gameRef.current;
@@ -62,6 +64,27 @@ export const GameProvider = ({ children }) => {
     setBoard(game.board());
   };
 
+  const playAi = async () => {
+    const game = gameRef.current;
+
+    // Oyun bittiyse hamle yapma
+    if (game.isGameOver()) return;
+
+    // Biraz bekle (İnsani gecikme)
+    await new Promise(r => setTimeout(r, 500));
+    
+    // Stockfish'e sor (Ref üzerinden güncel FEN'i gönder)
+    const bestMove = await getBestMove(game.fen(), depth); 
+    
+    if (bestMove) {
+      const from = bestMove.substring(0, 2);
+      const to = bestMove.substring(2, 4);
+      
+      // AI'nin hamlesini uygula
+      makeMove(from, to);
+    }
+  };
+
   const contextValue = useMemo(() => {
     const game = gameRef.current;
 
@@ -75,8 +98,11 @@ export const GameProvider = ({ children }) => {
       isCheckmate: game.isCheckmate(),
       isDraw: game.isDraw(),
       isGameOver: game.isGameOver(),
+      isAiThinking,
+      playAi,
+      setDepth,
     };
-  }, [fen, board]);
+  }, [fen, board, isAiThinking]);
 
   return (
     <GameContext.Provider value={contextValue}>{children}</GameContext.Provider>
