@@ -49,9 +49,6 @@ export const GameProvider = ({ children }) => {
   const makeMove = (from, to) => {
     const game = gameRef.current;
 
-    // Oyuncunun sırası değilse hamle yapma
-    if (game.turn() !== userColor) return false;
-
     try {
       const moveResult = game.move({
         from,
