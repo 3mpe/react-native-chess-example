@@ -16,21 +16,55 @@ export const GameProvider = ({ children }) => {
 
   const [fen, setFen] = useState(gameRef.current.fen());
   const [board, setBoard] = useState(gameRef.current.board());
-  const [depth, setDepth] = useState(10);
+  const [depth, setDepth] = useState(10); // AI Zorluk Seviyesi
+  const [userColor, setUserColor] = useState('w'); // 'w' veya 'b'
+  const [isGameStarted, setIsGameStarted] = useState(false);
 
+  
+  /**
+   * AI'nin hamle yapması için fen değiştiğinde kontrol et
+   */
+  useEffect(() => {
+    const game = gameRef.current;
+
+    // Eğer sıra KULLANICIDA DEĞİLSE ve oyun bitmediyse -> AI OYNAR
+    if (game.turn() !== userColor && !game.isGameOver()) {
+      playAi();
+    }
+  }, [fen, userColor]);
+
+
+  /**
+   * Takım renklerini değiştirir
+   */
+  const switchSides = () => {
+    const newColor = userColor === 'w' ? 'b' : 'w';
+    setUserColor(newColor);
+  };
+
+  /**
+   * Belirtilen hamleyi yapar ve state'i günceller
+   */
   const makeMove = (from, to) => {
     const game = gameRef.current;
+
+    // Oyuncunun sırası değilse hamle yapma
+    if (game.turn() !== userColor) return false;
 
     try {
       const moveResult = game.move({
         from,
         to,
-        promotion: 'q',
+        promotion: 'q', // Varsayılan olarak vezir terfisi
       });
 
       if (moveResult) {
         setFen(game.fen());
         setBoard(game.board());
+
+        // İlk hamle yapıldığında oyunu başlat
+        if (!isGameStarted) setIsGameStarted(true);
+
         return true;
       }
     } catch (e) {
@@ -41,15 +75,25 @@ export const GameProvider = ({ children }) => {
     return false;
   };
 
+  /**
+   * Son hamleyi geri alır ve state'i günceller
+   */
   const undoMove = () => {
     const game = gameRef.current;
 
-    const undoResult = game.undo();
+    // 1. Önce son yapılan hamleyi geri al (Genelde bu AI'nın hamlesidir)
+    const result = game.undo();
 
-    if (undoResult) {
-      setFen(game.fen());
-      setBoard(game.board());
+    // 2. Eğer başarılı bir geri alma yaptıysak VE sıra şu an kullanıcıda değilse
+    // (Yani sadece AI hamlesini geri aldık, sıra AI'ya geçtiyse)
+    // Bir adım daha geri almalıyız ki sıra kullanıcıya gelsin ve hamlesini değiştirebilsin.
+    if (result && game.turn() !== userColor) {
+      game.undo();
     }
+
+    // State'i güncelle
+    setFen(game.fen());
+    setBoard(game.board());
   };
 
   /**
@@ -64,6 +108,9 @@ export const GameProvider = ({ children }) => {
     setBoard(game.board());
   };
 
+  /**
+   * AI'nin hamle yapmasını sağlar
+   */
   const playAi = async () => {
     const game = gameRef.current;
 
@@ -85,12 +132,16 @@ export const GameProvider = ({ children }) => {
     }
   };
 
+  /**
+   * Context value'yu hazırlar
+   */
   const contextValue = useMemo(() => {
     const game = gameRef.current;
 
     return {
       fen,
       board,
+      // Oyun ile ilgili fonksiyonlar ve state
       makeMove,
       resetGame,
       undoMove,
@@ -98,9 +149,16 @@ export const GameProvider = ({ children }) => {
       isCheckmate: game.isCheckmate(),
       isDraw: game.isDraw(),
       isGameOver: game.isGameOver(),
+
+      // AI ile ilgili fonksiyonlar ve state
       isAiThinking,
       playAi,
       setDepth,
+
+      // Oyuncu renk değiştirme fonksiyonu
+      switchSides, // Takım renklerini değiştirme 
+      userColor,   // Kullanıcının rengi
+      setUserColor, // Kullanıcının rengini doğrudan atama 
     };
   }, [fen, board, isAiThinking]);
 

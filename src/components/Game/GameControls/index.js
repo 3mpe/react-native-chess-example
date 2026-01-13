@@ -4,10 +4,16 @@ import { View, Button, Typography } from '../../';
 import { StyleSheet } from 'react-native';
 
 const GameControls = () => {
-  const { resetGame, undoMove } = useGame();
+  const { resetGame, undoMove, userColor, isAiThinking } = useGame();
 
   return (
     <View marginLeft={20} marginRight={20}>
+      <Typography variant="h3">
+        Senin Rengin: {userColor === 'w' ? '⚪ Beyaz' : '⚫ Siyah'}
+      </Typography>
+
+      {isAiThinking && <Typography>🤖 AI Hamle Yapıyor...</Typography>}
+      
       <Button style={styles.button} onPress={resetGame}>
         <Typography style={styles.buttonText}>Yeni Oyun</Typography>
       </Button>
